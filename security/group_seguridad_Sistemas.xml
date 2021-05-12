@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+            <record model="ir.module.category" id="module_category_flujo_sistemas">
+	            <field name="name">Flujo Sistemas</field>
+	            <field name="description">Sistemas</field>
+	            <field name="sequence">8</field>
+			</record>
+			
+			<record id="supervisor_flujo_sistemas_group" model="res.groups"> 
+	            <field name="name">Sistemas</field>
+	            <field name="category_id" ref="module_category_flujo_sistemas"/>
+       		 </record>
+
+
+			<record id="supervisor_nivel2_flujo_sistemas_group" model="res.groups"> 
+	            <field name="name">Supervisor Sistemas</field>
+	            <field name="category_id" ref="module_category_flujo_sistemas"/>
+       		 </record>
+
+       	
+       		<record id="gerente_flujo_sistemas_group" model="res.groups"> 
+	            <field name="name">Gerente Sistemas</field>
+	            <field name="category_id" ref="module_category_flujo_sistemas"/>
+       		 </record>
+			
+			<record id="sis_usuario" model="ir.rule">
+					<field name="name">Id regla sistemas</field>
+					<field name="model_id" ref="model_crm_flujo_nuevo_sistemas"/>
+					<field name="groups" eval="[(6,0, [ref('crm_funel_venta_sistemas.supervisor_flujo_sistemas_group')])]"/>
+					<field name="domain_force">[('user_id','=',user.id)]</field>
+					<field name="perm_read" eval="1"/>
+					<field name="perm_write" eval="1"/>
+					<field name="perm_create" eval="1"/>
+					<field name="perm_unlink" eval="0" />	
+			</record>
+
+		
+
+
+			<record id="sis_supervisor" model="ir.rule">
+					<field name="name">Id regla supervisor Sistemas</field>
+					<field name="model_id" ref="model_crm_flujo_nuevo_sistemas"/>
+					<field name="groups" eval="[(6,0, [ref('crm_funel_venta_sistemas.supervisor_nivel2_flujo_sistemas_group')])]"/>
+					<field name="perm_read" eval="1"/>
+					<field name="perm_write" eval="1"/>
+					<field name="perm_create" eval="1"/>
+					<field name="perm_unlink" eval="0" />
+					<field name="domain_force">[(1,'=',1)]</field>
+			</record>
+
+
+			<record id="sis_gerente" model="ir.rule">
+					<field name="name">Id regla gerente Sistemas</field>
+					<field name="model_id" ref="model_crm_flujo_nuevo_sistemas"/>
+					<field name="groups" eval="[(6,0, [ref('crm_funel_venta_sistemas.gerente_flujo_sistemas_group')])]"/>
+					<field name="perm_read" eval="1"/>
+					<field name="perm_write" eval="1"/>
+					<field name="perm_create" eval="1"/>
+					<field name="perm_unlink" eval="1" />
+					<field name="domain_force">[(1,'=',1)]</field>
+			</record>
+
+			
+
+    </data>
+</odoo>
